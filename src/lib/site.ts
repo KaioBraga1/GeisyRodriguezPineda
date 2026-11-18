@@ -14,7 +14,7 @@ export const site = {
   crm: "CRM-SP 240872",
   rqe: "RQE 138750",
   url:
-    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
+    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
     "https://drageisyrodriguezpineda.com",
   // Apenas dígitos, formato internacional. Configure em .env.local.
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "",
@@ -23,10 +23,10 @@ export const site = {
   // Se o arquivo não existir, o site cai automaticamente no plate de marca.
   photos: {
     hero:
-      process.env.NEXT_PUBLIC_HERO_PHOTO ??
+      process.env.NEXT_PUBLIC_HERO_PHOTO ||
       "/dra-geisy-rodriguez-pineda.jpg",
     about:
-      process.env.NEXT_PUBLIC_ABOUT_PHOTO ??
+      process.env.NEXT_PUBLIC_ABOUT_PHOTO ||
       "/dra-geisy-medica-de-familia.jpg",
   },
 } as const;
