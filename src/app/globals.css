@@ -1,0 +1,195 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────
+   Dra. Geisy — sistema de design
+   Paleta editorial e quente: tinta petróleo sobre papel, latão
+   como acento. Deliberadamente longe do "azul de médico".
+   ───────────────────────────────────────────────────────────── */
+@theme {
+  /* Superfícies */
+  --color-paper: #faf9f6; /* fundo principal, branco quente */
+  --color-sand: #eee8df; /* seções alternadas, areia quente */
+  --color-mist: #e4f2f2; /* tinta fria suave */
+  --color-ink: #1c6a87; /* azul primário — mais claro e mais vivo */
+  --color-ink-deep: #17495e; /* azul profundo p/ seções escuras */
+  --color-ink-line: #2f7591; /* linhas sobre fundo escuro */
+
+  /* Texto */
+  --color-slate: #55626b; /* texto secundário sobre claro (~6:1) */
+  --color-slate-soft: #626e76; /* legendas discretas — AA em texto normal (~5:1) */
+
+  /* Acentos */
+  --color-accent: #d75a31; /* terracota viva (linhas, ícones, molduras) */
+  --color-accent-ink: #b0431f; /* terracota viva p/ texto — AA sobre papel e areia (≥4.6:1) */
+  --color-glow: #92f5ff; /* ciano vivo — uso mínimo */
+
+  /* Sobre fundo escuro */
+  --color-paper-dim: #d7ddd9;
+  --color-accent-light: #f2a07a; /* coral vivo p/ fundo escuro */
+
+  /* Tipografia */
+  --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
+
+  /* Ritmo */
+  --spacing-section: clamp(5rem, 10vw, 9rem);
+
+  /* Movimento */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Larguras de conteúdo */
+  --width-prose: 40rem;
+}
+
+/* ── Base ──────────────────────────────────────────────────── */
+@layer base {
+  :root {
+    color-scheme: light;
+    --header-h: 4.75rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv01";
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  /* Foco acessível e visível em toda a interface */
+  :focus-visible {
+    outline: 2px solid var(--color-accent-ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  /* Fraunces afinado: mais suave e um toque "wonk" editorial */
+  .font-display {
+    font-family: var(--font-serif);
+    font-variation-settings: "opsz" 144, "SOFT" 40, "WONK" 0;
+  }
+
+  /* Título principal: usa Bell MT quando disponível (ex.: Office/Windows),
+     com fallback elegante para a serifada do site. */
+  .font-title {
+    font-family: "Bell MT", var(--font-serif), Georgia, serif;
+    font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ── Utilitários de composição ─────────────────────────────── */
+@layer components {
+  .container-editorial {
+    width: 100%;
+    max-width: 78rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 4rem);
+  }
+
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-accent-ink);
+  }
+
+  /* Fio decorativo antes de um kicker */
+  .eyebrow-line::before {
+    content: "";
+    display: inline-block;
+    width: 2rem;
+    height: 1px;
+    margin-right: 0.85rem;
+    vertical-align: middle;
+    background-color: var(--color-accent);
+  }
+
+  /* Textura sutil de papel para dar profundidade sem peso visual */
+  .paper-grain {
+    position: relative;
+  }
+  .paper-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.4;
+    mix-blend-mode: multiply;
+    background-image: radial-gradient(
+      rgba(28, 106, 135, 0.035) 1px,
+      transparent 1px
+    );
+    background-size: 4px 4px;
+  }
+}
+
+/* ── Reveal on scroll (progressivo, degrada sem JS) ────────── */
+@layer utilities {
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.9s var(--ease-out-soft),
+      transform 0.9s var(--ease-out-soft);
+    will-change: opacity, transform;
+  }
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* Fallback: sem JS, nada fica invisível */
+  .no-js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
