@@ -47,7 +47,7 @@ Copie `.env.example` para `.env.local` e preencha:
 | `NEXT_PUBLIC_SITE_URL` | URL canônica (SEO, sitemap, hreflang, OG). |
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | **[CONFIRMAR]** Número no formato internacional, só dígitos (`55DDDNÚMERO`). |
 | `NEXT_PUBLIC_CONTACT_EMAIL` | E-mail profissional (opcional). |
-| `NEXT_PUBLIC_PORTRAIT_SRC` | Caminho da foto oficial (ex.: `/portrait.jpg`). |
+| `NEXT_PUBLIC_HERO_PHOTO` / `NEXT_PUBLIC_ABOUT_PHOTO` | Caminhos das fotos (opcional). |
 
 > Sem o número de WhatsApp, todos os CTAs caem de forma segura para a seção de
 > contato (`#contato`) — nada de links quebrados em produção.
@@ -128,3 +128,5 @@ src/
 ---
 
 _Presença digital por **Mythos Labs**._
+
+Deploy na Hostinger: veja [DEPLOY-HOSTINGER.md](DEPLOY-HOSTINGER.md).

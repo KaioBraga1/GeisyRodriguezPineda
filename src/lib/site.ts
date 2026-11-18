@@ -15,7 +15,7 @@ export const site = {
   rqe: "RQE 138750",
   url:
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
-    "https://draageisy.com.br",
+    "https://drageisyrodriguezpineda.com",
   // Apenas dígitos, formato internacional. Configure em .env.local.
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "",
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "",
